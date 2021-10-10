@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 export default class ReposList extends Component { 
     constructor() {
       super()
-      this.state = { repos: [] ,filteredRepos :[], value : "" , search : "" }
+      this.state = { repos: [] ,filteredRepos :[], value : "" , search : "" , days:"" }
     this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChangeSearch= this.handleChangeSearch.bind(this)
@@ -21,6 +21,8 @@ export default class ReposList extends Component {
       }
 
       handleSubmit(event) {
+
+        
         this.setState({value: event.target.value});
         //alert('A name was submitted: ' + this.state.value);
         event.preventDefault();
@@ -32,6 +34,12 @@ export default class ReposList extends Component {
           .then(data => {
             this.setState({ repos: data })
           })
+
+          var date1 = new Date(this.state.repos.updated_at);
+        console.log(this.state.repos.updated_at) ;var date2 = new Date();
+        var difference = date1. getTime() - date2. getTime();
+        var days = Math. ceil(difference / (1000 * 3600 * 24)); console. log(days + ' days to Christmas');
+        this.setState({days:days});
         
       }
   
@@ -44,20 +52,27 @@ export default class ReposList extends Component {
         <div>
             <br />
              <form onSubmit={this.handleSubmit} className="justify-content-between">
+          <div className="form-group">
           <label>
-            Github Username:
+            <b>Github Username: </b>
+            &nbsp;
             <input type="text" value={this.state.value} onChange={this.handleChange} />
           </label>
-          <input type="submit" value="Submit" className="btn btn-success" />
+          &nbsp;&nbsp;
+          <input type="submit" value="Search" className="btn btn-success" />
+          </div>
         </form>
-<br /><br />
         
-          <h1>Repos List on netlify</h1>
+<br /><br />
+        <div className="profile">
+            {this.state?.repos?.owner?.login}
+        </div>
+          <h1>Repos List on netlify {this.state.repos?.owner?.login}</h1>
           <br />
-          <form onSubmit={this.handleSubmit}>
+          <form style= {{textAlign:"left" , marginLeft:100}} onSubmit={this.handleSubmit}>
           <label>
-            Search:
-            <input type="text" value={this.state.search} onChange={this.handleChangeSearch} />
+            <b>Search: </b>
+            <input  type="text" value={this.state.search} onChange={this.handleChangeSearch} />
           </label>
           
         </form>
@@ -68,15 +83,15 @@ export default class ReposList extends Component {
                     return val
                 }
             }).map(repo => {
-              return <div className="list-group">
+              return <div style={{marginRight : 100 , marginLeft : 100 , marginTop:20 ,textAlign:"left"}}className="list-group">
               <a href={repo.svn_url} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                 <img src={repo.owner.avatar_url + ""} alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0"/>
                 <div className="d-flex gap-2 w-100 justify-content-between">
                   <div>
                     <h6 className="mb-0">{repo.name}</h6>
-                    <p className="mb-0 opacity-75">{repo.language}</p>
+                    <p className="mb-0 opacity-75">Last updated {new Date(repo.updated_at).getDate()} {new Date(repo.updated_at).toLocaleString('default', { month: 'short' })} </p>
                   </div>
-                  <small className="opacity-50 text-nowrap">{repo.updated_at}</small>
+                  <small className="opacity-50 text-nowrap">Language: {repo.language}</small>
                 </div>
               </a>
               </div>
