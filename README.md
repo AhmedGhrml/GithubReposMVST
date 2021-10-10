@@ -1,3 +1,8 @@
+# Description
+
+This project lets you type a github username and look up for its repositories and search for an exact repository
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
