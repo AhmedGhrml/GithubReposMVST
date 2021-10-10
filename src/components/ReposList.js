@@ -42,23 +42,25 @@ export default class ReposList extends Component {
     render() {
       return (
         <div>
-             <form onSubmit={this.handleSubmit}>
+            <br />
+             <form onSubmit={this.handleSubmit} className="justify-content-between">
           <label>
-            Name:
+            Github Username:
             <input type="text" value={this.state.value} onChange={this.handleChange} />
           </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" className="btn btn-success" />
         </form>
-
-        <form onSubmit={this.handleSubmit}>
+<br /><br />
+        
+          <h1>Repos List on netlify</h1>
+          <br />
+          <form onSubmit={this.handleSubmit}>
           <label>
             Search:
             <input type="text" value={this.state.search} onChange={this.handleChangeSearch} />
           </label>
           
         </form>
-          <h1>Repos List on netlify</h1>
-          <ul>
             {this.state.repos.filter((val)=>{
                 if(this.state.search == "") {
                     return val 
@@ -66,9 +68,20 @@ export default class ReposList extends Component {
                     return val
                 }
             }).map(repo => {
-              return <li key={`movie-${repo.id}`}>{this.state.repos ? repo.name : alert("no repos to show")}</li>
+              return <div className="list-group">
+              <a href={repo.svn_url} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                <img src={repo.owner.avatar_url + ""} alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0"/>
+                <div className="d-flex gap-2 w-100 justify-content-between">
+                  <div>
+                    <h6 className="mb-0">{repo.name}</h6>
+                    <p className="mb-0 opacity-75">{repo.language}</p>
+                  </div>
+                  <small className="opacity-50 text-nowrap">{repo.updated_at}</small>
+                </div>
+              </a>
+              </div>
             })}
-          </ul>
+          
           
         </div>
       )
