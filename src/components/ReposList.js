@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-export default class ReposList extends Component { 
+export default class ReposList extends Component { props
     constructor() {
       super()
       this.state = { repos: [] ,filteredRepos :[], value : "" , search : "" , days:"" }
@@ -33,7 +33,7 @@ export default class ReposList extends Component {
           .then(response => response.json())
           .then(data => {
             this.setState({ repos: data })
-          })
+          });
 
           var date1 = new Date(this.state.repos.updated_at);
         console.log(this.state.repos.updated_at) ;var date2 = new Date();
@@ -49,14 +49,14 @@ export default class ReposList extends Component {
   
     render() {
       return (
-        <div>
+        <div data-testid="reposComponent">
             <br />
-             <form onSubmit={this.handleSubmit} className="justify-content-between">
+             <form style= {{textAlign:"left" , marginLeft:100}} onSubmit={this.handleSubmit} className="justify-content-between">
           <div className="form-group">
           <label>
-            <b>Github Username: </b>
+            
             &nbsp;
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <input className="form-control"  type="text" placeholder="Find a user ..." value={this.state.value} onChange={this.handleChange} />
           </label>
           &nbsp;&nbsp;
           <input type="submit" value="Search" className="btn btn-success" />
@@ -64,26 +64,30 @@ export default class ReposList extends Component {
         </form>
         
 <br /><br />
-        <div className="profile">
-            {this.state?.repos?.owner?.login}
-        </div>
-          <h1>Repos List on netlify {this.state.repos?.owner?.login}</h1>
+        <div  >
+          <h1 style= {{textAlign:"left" , marginLeft:100}}>Github Repos List {this.state.repos?.owner?.login}</h1>
           <br />
-          <form style= {{textAlign:"left" , marginLeft:100}} onSubmit={this.handleSubmit}>
-          <label>
-            <b>Search: </b>
-            <input  type="text" value={this.state.search} onChange={this.handleChangeSearch} />
-          </label>
+          <form style= {{textAlign:"left" , marginLeft:100}} onSubmit={this.handleSubmit} className="form-horizontal">
+          
+          <div className="form-group">
+      
+      <div className="col-sm-5">
+        <input className="form-control" id="focusedInput" type="text" placeholder="Search repository..." value={this.state.search} onChange={this.handleChangeSearch}/>
+      </div>
+    </div>
+          
+          
           
         </form>
-            {this.state.repos.filter((val)=>{
+            
+            { this.state.repos?.filter((val)=>{
                 if(this.state.search == "") {
                     return val 
                 } else if(val.name.toLowerCase().includes(this.state.search)){
                     return val
                 }
             }).map(repo => {
-              return <div style={{marginRight : 100 , marginLeft : 100 , marginTop:20 ,textAlign:"left"}}className="list-group">
+              return <div data-testid={repo.id+""} style={{marginRight : 100 , marginLeft : 100 , marginTop:20 ,textAlign:"left" , backgroundColor:'aliceblue'}}className="list-group">
               <a href={repo.svn_url} className="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                 <img src={repo.owner.avatar_url + ""} alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0"/>
                 <div className="d-flex gap-2 w-100 justify-content-between">
@@ -98,6 +102,7 @@ export default class ReposList extends Component {
             })}
           
           
+        </div>
         </div>
       )
     }
