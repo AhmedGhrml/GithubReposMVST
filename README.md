@@ -3,6 +3,13 @@
 This project lets you type a github username and look up for its repositories and search for an exact repository
 
 
+# Future Improvements
+I would like to enhance the UI more since it's pretty much simple , nothing fancy.
+
+
+# Feedback about the exercise
+I HAD FUN! , I mean , the exercise is quite simple , yet it's challenging , I had fun working with React , I faced some bugs (Obviously xD) , but that's our job as developers right? :'D , but to be honest , I loved the exercice and I hope you like my work!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -34,12 +41,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### Future Improvements
-I would like to enhance the UI more since it's pretty much simple , nothing fancy.
 
-
-### Feedback about the exercise
-I HAD FUN! , I mean , the exercise is quite simple , yet it's challenging , I had fun working with React , I faced some bugs (Obviously xD) , but that's our job as developers right? :'D , but to be honest , I loved the exercice and I hope you like my work!
 
 ### Deployment
 
